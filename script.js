@@ -95,7 +95,6 @@ const photoLabel = document.querySelector('.photo-upload__label');
 // Предотвращаем стандартное поведение браузера для drag and drop
 ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
     photoUpload.addEventListener(eventName, preventDefaults, false);
-    document.body.addEventListener(eventName, preventDefaults, false);
 });
 
 function preventDefaults(e) {
@@ -104,19 +103,18 @@ function preventDefaults(e) {
 }
 
 // Добавляем визуальные эффекты при перетаскивании
-['dragenter', 'dragover'].forEach(eventName => {
-    photoUpload.addEventListener(eventName, highlight, false);
-});
-
-['dragleave', 'drop'].forEach(eventName => {
-    photoUpload.addEventListener(eventName, unhighlight, false);
-});
+photoUpload.addEventListener('dragenter', highlight, false);
+photoUpload.addEventListener('dragover', highlight, false);
+photoUpload.addEventListener('dragleave', unhighlight, false);
+photoUpload.addEventListener('drop', unhighlight, false);
 
 function highlight(e) {
+    e.preventDefault();
     photoUpload.classList.add('highlight');
 }
 
 function unhighlight(e) {
+    e.preventDefault();
     photoUpload.classList.remove('highlight');
 }
 
@@ -124,6 +122,7 @@ function unhighlight(e) {
 photoUpload.addEventListener('drop', handleDrop, false);
 
 function handleDrop(e) {
+    e.preventDefault();
     const dt = e.dataTransfer;
     const files = dt.files;
     
