@@ -175,26 +175,38 @@ const popupClose = document.querySelector('.image-popup__close');
 
 // Функция для открытия попапа
 function openImagePopup(imageSrc) {
+    // Сначала устанавливаем src, чтобы изображение начало загружаться
     popupImage.src = imageSrc;
-    imagePopup.classList.add('active');
-    document.body.style.overflow = 'hidden'; // Блокируем прокрутку страницы
+    
+    // Ждем загрузки изображения
+    popupImage.onload = function() {
+        imagePopup.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    };
 }
 
 // Функция для закрытия попапа
 function closeImagePopup() {
     imagePopup.classList.remove('active');
-    document.body.style.overflow = ''; // Разблокируем прокрутку страницы
+    // Даем время на завершение анимации перед разблокировкой прокрутки
+    setTimeout(() => {
+        document.body.style.overflow = '';
+    }, 300);
 }
 
 // Обработчик клика по превью изображения
 photoPreview.addEventListener('click', function(e) {
     if (e.target.tagName === 'IMG') {
+        e.preventDefault();
         openImagePopup(e.target.src);
     }
 });
 
 // Закрытие попапа по клику на кнопку закрытия
-popupClose.addEventListener('click', closeImagePopup);
+popupClose.addEventListener('click', function(e) {
+    e.preventDefault();
+    closeImagePopup();
+});
 
 // Закрытие попапа по клику вне изображения
 imagePopup.addEventListener('click', function(e) {

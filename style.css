@@ -284,32 +284,44 @@ body {
 
 /* Стили для попапа просмотра изображения */
 .image-popup {
-    display: none;
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 0);
     z-index: 1000;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: background-color 0.3s ease, opacity 0.3s ease, visibility 0.3s ease;
+    display: flex;
 }
 
 .image-popup.active {
-    display: flex;
+    background-color: rgba(0, 0, 0, 0.9);
+    opacity: 1;
+    visibility: visible;
 }
 
 .image-popup__content {
     position: relative;
     max-width: 90%;
     max-height: 90%;
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+}
+
+.image-popup.active .image-popup__content {
+    transform: scale(1);
 }
 
 .image-popup__image {
     max-width: 100%;
     max-height: 90vh;
     object-fit: contain;
+    display: block;
 }
 
 .image-popup__close {
@@ -322,13 +334,20 @@ body {
     font-size: 30px;
     cursor: pointer;
     padding: 5px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
 }
 
 .image-popup__close:hover {
-    color: #ccc;
+    opacity: 1;
 }
 
 /* Добавляем курсор pointer для превью изображения */
 .photo-upload__preview img {
     cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.photo-upload__preview img:hover {
+    transform: scale(1.05);
 }
