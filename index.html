@@ -11,7 +11,24 @@
         <div class="header__inner">
             <div class="header__logo">
                 <a href="/" class="logo">
-                    <img src="images/logo.svg" alt="Логотип" class="logo__img">
+                    <svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" class="logo__img">
+                        <!-- Кошка -->
+                        <path d="M30 15 C35 10, 40 10, 45 15 C50 20, 50 25, 45 30 C40 35, 35 35, 30 30 C25 25, 25 20, 30 15" 
+                              fill="#FFB6C1" stroke="#000" stroke-width="1"/>
+                        <circle cx="35" cy="20" r="2" fill="#000"/> <!-- Глаз -->
+                        <circle cx="43" cy="20" r="2" fill="#000"/> <!-- Глаз -->
+                        <path d="M38 25 Q40 27, 42 25" stroke="#000" fill="none"/> <!-- Улыбка -->
+                        
+                        <!-- Собака -->
+                        <path d="M70 15 C75 10, 80 10, 85 15 C90 20, 90 25, 85 30 C80 35, 75 35, 70 30 C65 25, 65 20, 70 15" 
+                              fill="#87CEEB" stroke="#000" stroke-width="1"/>
+                        <circle cx="75" cy="20" r="2" fill="#000"/> <!-- Глаз -->
+                        <circle cx="83" cy="20" r="2" fill="#000"/> <!-- Глаз -->
+                        <path d="M78 25 Q80 27, 82 25" stroke="#000" fill="none"/> <!-- Улыбка -->
+                        
+                        <!-- Текст -->
+                        <text x="10" y="38" font-family="Arial" font-size="12" fill="#333">PetFriends</text>
+                    </svg>
                 </a>
             </div>
             <nav class="header__menu menu">
@@ -33,6 +50,59 @@
         </div>
     </div>
 </header>
+<section class="pet-form">
+    <div class="container">
+        <h2 class="pet-form__title">Добавить питомца</h2>
+        <form class="pet-form__content">
+            <div class="pet-form__main">
+                <div class="pet-form__fields">
+                    <div class="form-group">
+                        <label for="pet-name">Имя питомца</label>
+                        <input type="text" id="pet-name" name="pet-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pet-breed">Порода</label>
+                        <input type="text" id="pet-breed" name="pet-breed" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pet-color">Окрас</label>
+                        <input type="text" id="pet-color" name="pet-color" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pet-birthdate">Дата рождения</label>
+                        <input type="date" id="pet-birthdate" name="pet-birthdate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="pet-chip">Номер чипа</label>
+                        <input type="text" id="pet-chip" name="pet-chip" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Пол</label>
+                        <div class="gender-switch">
+                            <input type="radio" id="male" name="gender" value="male" checked>
+                            <label for="male">Мальчик</label>
+                            <input type="radio" id="female" name="gender" value="female">
+                            <label for="female">Девочка</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="pet-form__photo">
+                    <div class="photo-upload">
+                        <input type="file" id="pet-photo" name="pet-photo" accept="image/*" class="photo-upload__input">
+                        <label for="pet-photo" class="photo-upload__label">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M20 10V30M10 20H30" stroke="#666" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            <span>Загрузить фото</span>
+                        </label>
+                        <div class="photo-upload__preview"></div>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="pet-form__submit">Добавить питомца</button>
+        </form>
+    </div>
+</section>
 <section class="post-feed">
     <div class="container">
         <h2 class="post-feed__title">Последние публикации</h2>
