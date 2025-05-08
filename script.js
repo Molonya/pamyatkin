@@ -166,4 +166,46 @@ function handleFiles(files) {
     }
     
     reader.readAsDataURL(file);
-} 
+}
+
+// Функционал попапа для просмотра изображения
+const imagePopup = document.querySelector('.image-popup');
+const popupImage = document.querySelector('.image-popup__image');
+const popupClose = document.querySelector('.image-popup__close');
+
+// Функция для открытия попапа
+function openImagePopup(imageSrc) {
+    popupImage.src = imageSrc;
+    imagePopup.classList.add('active');
+    document.body.style.overflow = 'hidden'; // Блокируем прокрутку страницы
+}
+
+// Функция для закрытия попапа
+function closeImagePopup() {
+    imagePopup.classList.remove('active');
+    document.body.style.overflow = ''; // Разблокируем прокрутку страницы
+}
+
+// Обработчик клика по превью изображения
+photoPreview.addEventListener('click', function(e) {
+    if (e.target.tagName === 'IMG') {
+        openImagePopup(e.target.src);
+    }
+});
+
+// Закрытие попапа по клику на кнопку закрытия
+popupClose.addEventListener('click', closeImagePopup);
+
+// Закрытие попапа по клику вне изображения
+imagePopup.addEventListener('click', function(e) {
+    if (e.target === imagePopup) {
+        closeImagePopup();
+    }
+});
+
+// Закрытие попапа по нажатию Escape
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && imagePopup.classList.contains('active')) {
+        closeImagePopup();
+    }
+}); 
