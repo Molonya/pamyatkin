@@ -267,7 +267,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('pet-card-name').textContent = name;
         document.getElementById('pet-card-breed').textContent = breed;
         document.getElementById('pet-card-color').textContent = color;
-        document.getElementById('pet-card-birthdate').textContent = `${new Date(birthdate).toLocaleDateString('ru-RU')}, ${calculateAge(birthdate)}`;
+        const birthdateStr = new Date(birthdate).toLocaleDateString('ru-RU');
+        const ageStr = calculateAge(birthdate);
+        document.getElementById('pet-card-birthdate').textContent = `${birthdateStr}, ${ageStr}`;
         document.getElementById('pet-card-chip').textContent = chip;
         document.getElementById('pet-card-gender').textContent = gender === 'male' ? 'Мальчик' : 'Девочка';
         
@@ -427,6 +429,26 @@ function calculateAge(birthdate) {
         months += 12;
     }
 
+    function getMonthWord(months) {
+        const lastDigit = months % 10;
+        const lastTwoDigits = months % 100;
+        
+        if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+            return 'месяцев';
+        }
+        
+        switch (lastDigit) {
+            case 1:
+                return 'месяц';
+            case 2:
+            case 3:
+            case 4:
+                return 'месяца';
+            default:
+                return 'месяцев';
+        }
+    }
+
     function getYearWord(years) {
         if (years === 0) return '';
         
@@ -449,33 +471,10 @@ function calculateAge(birthdate) {
         }
     }
 
-    function getMonthWord(months) {
-        const lastDigit = months % 10;
-        const lastTwoDigits = months % 100;
-        
-        if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
-            return 'месяцев';
-        }
-        
-        switch (lastDigit) {
-            case 1:
-                return 'месяц';
-            case 2:
-            case 3:
-            case 4:
-                return 'месяца';
-            default:
-                return 'месяцев';
-        }
-    }
-    
-    const yearWord = getYearWord(years);
-    const monthWord = getMonthWord(months);
-    
     if (years === 0) {
-        return `${months} ${monthWord}`;
+        return `${months} ${getMonthWord(months)}`;
     }
-    
+
     return `${years} ${getYearWord(years)} ${months} ${getMonthWord(months)}`;
 }
 
