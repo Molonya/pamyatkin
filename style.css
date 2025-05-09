@@ -216,10 +216,9 @@ body {
     transition: opacity 0.3s ease;
     pointer-events: none;
     position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-right: 40px;
+    left: 0;
+    top: 100%;
+    margin-top: 4px;
     white-space: nowrap;
 }
 
