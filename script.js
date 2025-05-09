@@ -528,4 +528,11 @@ function animateInputError(input) {
     requestAnimationFrame(() => {
         input.parentElement.style.opacity = '1';
     });
-} 
+}
+
+// Установка максимальной даты для поля ввода даты рождения
+document.addEventListener('DOMContentLoaded', function() {
+    const birthdateInput = document.getElementById('pet-birthdate');
+    const today = new Date().toISOString().split('T')[0];
+    birthdateInput.max = today;
+}); 
