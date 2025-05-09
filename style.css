@@ -215,10 +215,12 @@ body {
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
-    margin-top: 4px;
     position: absolute;
     right: 0;
-    top: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    margin-right: 40px;
+    white-space: nowrap;
 }
 
 .form-group input.error ~ .validation-message {
