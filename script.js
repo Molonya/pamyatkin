@@ -428,6 +428,8 @@ function calculateAge(birthdate) {
     }
 
     function getYearWord(years) {
+        if (years === 0) return '';
+        
         const lastDigit = years % 10;
         const lastTwoDigits = years % 100;
         
@@ -467,8 +469,11 @@ function calculateAge(birthdate) {
         }
     }
     
+    const yearWord = getYearWord(years);
+    const monthWord = getMonthWord(months);
+    
     if (years === 0) {
-        return `${months} ${getMonthWord(months)}`;
+        return `${months} ${monthWord}`;
     }
     
     return `${years} ${getYearWord(years)} ${months} ${getMonthWord(months)}`;
