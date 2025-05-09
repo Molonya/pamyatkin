@@ -467,6 +467,10 @@ function calculateAge(birthdate) {
         }
     }
     
+    if (years === 0) {
+        return `${months} ${getMonthWord(months)}`;
+    }
+    
     return `${years} ${getYearWord(years)} ${months} ${getMonthWord(months)}`;
 }
 
