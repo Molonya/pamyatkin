@@ -221,8 +221,8 @@ document.addEventListener('DOMContentLoaded', function() {
         let hasError = false;
         const fields = [
             { id: 'pet-name', value: name, pattern: /^[А-Яа-яЁёA-Za-z\s-]+$/ },
-            { id: 'pet-breed', value: breed },
-            { id: 'pet-color', value: color },
+            { id: 'pet-breed', value: breed, pattern: /^[А-Яа-яЁёA-Za-z\s-]+$/ },
+            { id: 'pet-color', value: color, pattern: /^[А-Яа-яЁёA-Za-z\s-]+$/ },
             { id: 'pet-birthdate', value: birthdate },
             { id: 'pet-chip', value: chip }
         ];
@@ -420,8 +420,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 clearButton.style.display = this.value ? 'block' : 'none';
             }
 
-            // Проверка валидности имени
-            if (this.id === 'pet-name') {
+            // Проверка валидности текстовых полей
+            if (this.id !== 'pet-chip' && this.id !== 'pet-birthdate') {
                 const pattern = /^[А-Яа-яЁёA-Za-z\s-]+$/;
                 if (this.value && !pattern.test(this.value)) {
                     this.classList.add('error');

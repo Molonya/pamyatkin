@@ -55,14 +55,14 @@
                     <div class="form-group">
                         <label for="pet-breed">Порода</label>
                         <div class="input-wrapper">
-                            <input type="text" id="pet-breed" name="pet-breed" maxlength="50" required placeholder=" ">
+                            <input type="text" id="pet-breed" name="pet-breed" maxlength="50" required placeholder=" " pattern="[А-Яа-яЁёA-Za-z\s-]+" title="Порода может содержать только буквы, пробелы и дефис">
                             <button type="button" class="clear-field" aria-label="Очистить поле"></button>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="pet-color">Окрас</label>
                         <div class="input-wrapper">
-                            <input type="text" id="pet-color" name="pet-color" maxlength="30" required placeholder=" ">
+                            <input type="text" id="pet-color" name="pet-color" maxlength="30" required placeholder=" " pattern="[А-Яа-яЁёA-Za-z\s-]+" title="Окрас может содержать только буквы, пробелы и дефис">
                             <button type="button" class="clear-field" aria-label="Очистить поле"></button>
                         </div>
                     </div>

@@ -651,7 +651,7 @@ body {
     position: relative;
     width: 36px;
     height: 36px;
-    background: transparent;
+    background: none;
     border: none;
     cursor: pointer;
     padding: 0;
@@ -667,7 +667,7 @@ body {
 
 .clear-field:hover {
     color: #666;
-    background: transparent;
+    background: none;
 }
 
 .clear-field::before,
