@@ -428,12 +428,18 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (this.value && !pattern.test(this.value)) {
                     this.classList.add('error');
                     if (validationMessage) {
-                        validationMessage.style.opacity = '1';
+                        validationMessage.style.display = 'block';
+                        setTimeout(() => {
+                            validationMessage.style.opacity = '1';
+                        }, 0);
                     }
                 } else {
                     this.classList.remove('error');
                     if (validationMessage) {
                         validationMessage.style.opacity = '0';
+                        setTimeout(() => {
+                            validationMessage.style.display = 'none';
+                        }, 300);
                     }
                 }
             }
