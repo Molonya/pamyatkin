@@ -216,7 +216,7 @@ body {
     transition: opacity 0.3s ease;
     pointer-events: none;
     position: absolute;
-    left: 0;
+    left: 8px;
     top: calc(100% - 2px);
     white-space: nowrap;
     z-index: 1;
