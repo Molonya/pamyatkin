@@ -48,7 +48,7 @@
                     <div class="form-group">
                         <label for="pet-name">Имя питомца</label>
                         <div class="input-wrapper">
-                            <input type="text" id="pet-name" name="pet-name" maxlength="30" required placeholder=" ">
+                            <input type="text" id="pet-name" name="pet-name" maxlength="30" required placeholder=" " pattern="[А-Яа-яЁёA-Za-z\s-]+" title="Имя может содержать только буквы, пробелы и дефис">
                             <button type="button" class="clear-field" aria-label="Очистить поле"></button>
                         </div>
                     </div>

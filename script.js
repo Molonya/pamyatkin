@@ -220,7 +220,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let hasError = false;
         const fields = [
-            { id: 'pet-name', value: name },
+            { id: 'pet-name', value: name, pattern: /^[А-Яа-яЁёA-Za-z\s-]+$/ },
             { id: 'pet-breed', value: breed },
             { id: 'pet-color', value: color },
             { id: 'pet-birthdate', value: birthdate },
@@ -228,8 +228,14 @@ document.addEventListener('DOMContentLoaded', function() {
         ];
 
         fields.forEach(field => {
+            const input = document.getElementById(field.id);
             if (!field.value) {
-                const input = document.getElementById(field.id);
+                input.classList.add('error');
+                hasError = true;
+                setTimeout(() => {
+                    input.classList.remove('error');
+                }, 250);
+            } else if (field.pattern && !field.pattern.test(field.value)) {
                 input.classList.add('error');
                 hasError = true;
                 setTimeout(() => {
@@ -412,6 +418,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const clearButton = this.nextElementSibling;
             if (clearButton && clearButton.classList.contains('clear-field')) {
                 clearButton.style.display = this.value ? 'block' : 'none';
+            }
+
+            // Проверка валидности имени
+            if (this.id === 'pet-name') {
+                const pattern = /^[А-Яа-яЁёA-Za-z\s-]+$/;
+                if (this.value && !pattern.test(this.value)) {
+                    this.classList.add('error');
+                } else {
+                    this.classList.remove('error');
+                }
             }
         });
     });
