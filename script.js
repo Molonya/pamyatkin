@@ -423,10 +423,18 @@ document.addEventListener('DOMContentLoaded', function() {
             // Проверка валидности текстовых полей
             if (this.id !== 'pet-chip' && this.id !== 'pet-birthdate') {
                 const pattern = /^[А-Яа-яЁёA-Za-z\s-]+$/;
+                const validationMessage = this.closest('.form-group').querySelector('.validation-message');
+                
                 if (this.value && !pattern.test(this.value)) {
                     this.classList.add('error');
+                    if (validationMessage) {
+                        validationMessage.style.opacity = '1';
+                    }
                 } else {
                     this.classList.remove('error');
+                    if (validationMessage) {
+                        validationMessage.style.opacity = '0';
+                    }
                 }
             }
         });
