@@ -110,12 +110,14 @@ photoUpload.addEventListener('drop', unhighlight, false);
 
 function highlight(e) {
     e.preventDefault();
-    photoUpload.classList.add('highlight');
+    photoUpload.style.borderColor = '#4CAF50';
+    photoUpload.style.backgroundColor = 'rgba(76, 175, 80, 0.1)';
 }
 
 function unhighlight(e) {
     e.preventDefault();
-    photoUpload.classList.remove('highlight');
+    photoUpload.style.borderColor = '#ddd';
+    photoUpload.style.backgroundColor = '#fff';
 }
 
 // Обработка сброшенных файлов
@@ -138,86 +140,392 @@ photoInput.addEventListener('change', function() {
     }
 });
 
-function handleFiles(files) {
-    const file = files[0];
-    
-    // Проверяем, что файл является изображением
-    if (!file.type.match('image.*')) {
-        alert('Пожалуйста, загрузите изображение!');
-        return;
-    }
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.querySelector('.pet-form__content');
+    const petCard = document.querySelector('.pet-card');
+    const photoInput = document.getElementById('pet-photo');
+    const photoPreview = document.querySelector('.photo-upload__preview');
+    const photoLabel = document.querySelector('.photo-upload__label');
+    const photoUpload = document.querySelector('.photo-upload');
+    const imagePopup = document.querySelector('.image-popup');
+    const popupImage = document.querySelector('.image-popup__image');
+    const popupClose = document.querySelector('.image-popup__close');
+    let uploadedPhoto = null;
 
-    const reader = new FileReader();
-    
-    reader.onload = function(e) {
-        // Создаем превью изображения
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        img.style.maxWidth = '100%';
-        img.style.maxHeight = '200px';
-        img.style.objectFit = 'cover';
+    function deletePhoto(e) {
+        if (e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
         
-        // Очищаем предыдущее превью
+        // Очищаем фото
         photoPreview.innerHTML = '';
-        photoPreview.appendChild(img);
+        photoLabel.style.display = 'flex';
+        photoInput.value = '';
+        uploadedPhoto = null;
         
-        // Скрываем текст "Загрузить фото"
-        photoLabel.style.display = 'none';
+        // Очищаем данные и скрываем карточку
+        localStorage.removeItem('lastPetData');
+        if (petCard) {
+            petCard.classList.remove('active');
+            petCard.style.display = 'none';
+        }
     }
-    
-    reader.readAsDataURL(file);
-}
 
-// Функционал попапа для просмотра изображения
-const imagePopup = document.querySelector('.image-popup');
-const popupImage = document.querySelector('.image-popup__image');
-const popupClose = document.querySelector('.image-popup__close');
+    function handleFiles(files) {
+        const file = files[0];
+        
+        if (!file.type.match('image.*')) {
+            return;
+        }
 
-// Функция для открытия попапа
-function openImagePopup(imageSrc) {
-    // Сначала устанавливаем src, чтобы изображение начало загружаться
-    popupImage.src = imageSrc;
-    
-    // Ждем загрузки изображения
-    popupImage.onload = function() {
-        imagePopup.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    };
-}
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            uploadedPhoto = e.target.result;
+            
+            // Создаем превью
+            photoPreview.innerHTML = `
+                <img src="${uploadedPhoto}" alt="Предпросмотр фото">
+                <button class="photo-upload__delete" aria-label="Удалить фото">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 8H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                </button>
+            `;
+            photoLabel.style.display = 'none';
+            
+            // Добавляем обработчик удаления
+            const deleteButton = photoPreview.querySelector('.photo-upload__delete');
+            deleteButton.addEventListener('click', deletePhoto);
+        }
+        
+        reader.readAsDataURL(file);
+    }
 
-// Функция для закрытия попапа
-function closeImagePopup() {
-    imagePopup.classList.remove('active');
-    // Даем время на завершение анимации перед разблокировкой прокрутки
-    setTimeout(() => {
-        document.body.style.overflow = '';
-    }, 300);
-}
-
-// Обработчик клика по превью изображения
-photoPreview.addEventListener('click', function(e) {
-    if (e.target.tagName === 'IMG') {
+    // Обработчик отправки формы
+    form.addEventListener('submit', function(e) {
         e.preventDefault();
-        openImagePopup(e.target.src);
+        
+        document.querySelectorAll('.error').forEach(el => {
+            el.classList.remove('error');
+        });
+        
+        const name = document.getElementById('pet-name').value.trim();
+        const breed = document.getElementById('pet-breed').value.trim();
+        const color = document.getElementById('pet-color').value.trim();
+        const birthdate = document.getElementById('pet-birthdate').value;
+        const chip = document.getElementById('pet-chip').value.trim();
+        const gender = document.querySelector('input[name="gender"]:checked').value;
+
+        let hasError = false;
+        const fields = [
+            { id: 'pet-name', value: name },
+            { id: 'pet-breed', value: breed },
+            { id: 'pet-color', value: color },
+            { id: 'pet-birthdate', value: birthdate },
+            { id: 'pet-chip', value: chip }
+        ];
+
+        fields.forEach(field => {
+            if (!field.value) {
+                const input = document.getElementById(field.id);
+                input.classList.add('error');
+                hasError = true;
+                setTimeout(() => {
+                    input.classList.remove('error');
+                }, 250);
+            }
+        });
+
+        if (!uploadedPhoto) {
+            photoUpload.classList.add('error');
+            hasError = true;
+            setTimeout(() => {
+                photoUpload.classList.remove('error');
+            }, 250);
+        }
+
+        if (hasError) {
+            return;
+        }
+
+        const petData = {
+            name,
+            breed,
+            color,
+            birthdate,
+            chip,
+            gender,
+            photo: uploadedPhoto
+        };
+
+        // Сохраняем данные
+        localStorage.setItem('lastPetData', JSON.stringify(petData));
+
+        // Обновляем карточку
+        document.getElementById('pet-card-name').textContent = name;
+        document.getElementById('pet-card-breed').textContent = breed;
+        document.getElementById('pet-card-color').textContent = color;
+        document.getElementById('pet-card-birthdate').textContent = `${new Date(birthdate).toLocaleDateString('ru-RU')}, ${calculateAge(birthdate)}`;
+        document.getElementById('pet-card-chip').textContent = chip;
+        document.getElementById('pet-card-gender').textContent = gender === 'male' ? 'Мальчик' : 'Девочка';
+        
+        if (uploadedPhoto) {
+            document.getElementById('pet-card-photo').src = uploadedPhoto;
+        }
+
+        // Показываем карточку
+        petCard.style.display = 'block';
+        petCard.classList.add('active');
+        petCard.scrollIntoView({ behavior: 'smooth' });
+        
+        // Очищаем форму
+        form.reset();
+        photoPreview.innerHTML = '';
+        photoLabel.style.display = 'flex';
+        photoInput.value = '';
+        uploadedPhoto = null;
+    });
+
+    // Обработчик удаления карточки
+    const deleteButton = document.getElementById('pet-card-delete');
+    deleteButton.addEventListener('click', function() {
+        if (confirm('Вы уверены, что хотите удалить карточку питомца?')) {
+            const savedData = JSON.parse(localStorage.getItem('lastPetData'));
+            
+            if (savedData) {
+                document.getElementById('pet-name').value = savedData.name;
+                document.getElementById('pet-breed').value = savedData.breed;
+                document.getElementById('pet-color').value = savedData.color;
+                document.getElementById('pet-birthdate').value = savedData.birthdate;
+                document.getElementById('pet-chip').value = savedData.chip;
+                document.querySelector(`input[name="gender"][value="${savedData.gender}"]`).checked = true;
+                
+                if (savedData.photo) {
+                    uploadedPhoto = savedData.photo;
+                    photoPreview.innerHTML = `
+                        <img src="${savedData.photo}" alt="Предпросмотр фото">
+                        <button class="photo-upload__delete" aria-label="Удалить фото">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M4 8H12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                        </button>
+                    `;
+                    photoLabel.style.display = 'none';
+                    
+                    const deleteButton = photoPreview.querySelector('.photo-upload__delete');
+                    deleteButton.addEventListener('click', deletePhoto);
+                }
+            }
+
+            petCard.classList.remove('active');
+            petCard.style.display = 'none';
+            form.scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+
+    // Обработчики для загрузки фото
+    photoInput.addEventListener('change', function() {
+        if (this.files.length > 0) {
+            handleFiles(this.files);
+        }
+    });
+
+    ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        photoUpload.addEventListener(eventName, preventDefaults, false);
+    });
+
+    function preventDefaults(e) {
+        e.preventDefault();
+        e.stopPropagation();
     }
-});
 
-// Закрытие попапа по клику на кнопку закрытия
-popupClose.addEventListener('click', function(e) {
-    e.preventDefault();
-    closeImagePopup();
-});
+    photoUpload.addEventListener('drop', function(e) {
+        const dt = e.dataTransfer;
+        const files = dt.files;
+        
+        if (files.length > 0) {
+            handleFiles(files);
+        }
+    });
 
-// Закрытие попапа по клику вне изображения
-imagePopup.addEventListener('click', function(e) {
-    if (e.target === imagePopup) {
+    // Попап для просмотра фото
+    photoPreview.addEventListener('click', function(e) {
+        if (e.target.tagName === 'IMG') {
+            e.preventDefault();
+            e.stopPropagation();
+            openImagePopup(e.target.src);
+        }
+    });
+
+    function openImagePopup(imageSrc) {
+        popupImage.src = imageSrc;
+        popupImage.onload = function() {
+            requestAnimationFrame(() => {
+                imagePopup.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        };
+    }
+
+    function closeImagePopup() {
+        imagePopup.classList.remove('active');
+        setTimeout(() => {
+            document.body.style.overflow = '';
+        }, 300);
+    }
+
+    popupClose.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
         closeImagePopup();
-    }
+    });
+
+    imagePopup.addEventListener('click', function(e) {
+        if (e.target === imagePopup) {
+            closeImagePopup();
+        }
+    });
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && imagePopup.classList.contains('active')) {
+            closeImagePopup();
+        }
+    });
+
+    // Добавляем обработчики для кнопок очистки полей
+    document.querySelectorAll('.clear-field').forEach(button => {
+        button.addEventListener('click', function() {
+            const input = this.previousElementSibling;
+            input.value = '';
+            input.focus();
+            this.style.display = 'none';
+        });
+    });
+
+    // Обновляем отображение кнопок очистки при вводе
+    document.querySelectorAll('.form-group input').forEach(input => {
+        input.addEventListener('input', function() {
+            const clearButton = this.nextElementSibling;
+            if (clearButton && clearButton.classList.contains('clear-field')) {
+                clearButton.style.display = this.value ? 'block' : 'none';
+            }
+        });
+    });
 });
 
-// Закрытие попапа по нажатию Escape
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && imagePopup.classList.contains('active')) {
-        closeImagePopup();
+function calculateAge(birthdate) {
+    const today = new Date();
+    const birth = new Date(birthdate);
+    
+    let years = today.getFullYear() - birth.getFullYear();
+    let months = today.getMonth() - birth.getMonth();
+    
+    if (months < 0) {
+        years--;
+        months += 12;
     }
-}); 
+
+    function getYearWord(years) {
+        const lastDigit = years % 10;
+        const lastTwoDigits = years % 100;
+        
+        if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+            return 'лет';
+        }
+        
+        switch (lastDigit) {
+            case 1:
+                return 'год';
+            case 2:
+            case 3:
+            case 4:
+                return 'года';
+            default:
+                return 'лет';
+        }
+    }
+
+    function getMonthWord(months) {
+        const lastDigit = months % 10;
+        const lastTwoDigits = months % 100;
+        
+        if (lastTwoDigits >= 11 && lastTwoDigits <= 19) {
+            return 'месяцев';
+        }
+        
+        switch (lastDigit) {
+            case 1:
+                return 'месяц';
+            case 2:
+            case 3:
+            case 4:
+                return 'месяца';
+            default:
+                return 'месяцев';
+        }
+    }
+    
+    return `${years} ${getYearWord(years)} ${months} ${getMonthWord(months)}`;
+}
+
+function showPetCard() {
+    const card = document.querySelector('.pet-card');
+    card.style.opacity = '0';
+    card.style.display = 'block';
+    requestAnimationFrame(() => {
+        card.style.opacity = '1';
+    });
+}
+
+function showPetForm() {
+    const petForm = document.querySelector('.pet-form');
+    petForm.style.opacity = '0';
+    requestAnimationFrame(() => {
+        petForm.style.opacity = '1';
+    });
+}
+
+function animateLogo() {
+    const logo = document.querySelector('.logo');
+    logo.style.opacity = '0';
+    requestAnimationFrame(() => {
+        logo.style.opacity = '1';
+    });
+}
+
+function animateMenuItems() {
+    const menuItems = document.querySelectorAll('.menu__link');
+    menuItems.forEach(item => {
+        item.style.opacity = '0';
+        requestAnimationFrame(() => {
+            item.style.opacity = '1';
+        });
+    });
+}
+
+function animatePostCards() {
+    const cards = document.querySelectorAll('.post-card');
+    cards.forEach(card => {
+        card.style.opacity = '0';
+        requestAnimationFrame(() => {
+            card.style.opacity = '1';
+        });
+    });
+}
+
+function animateSubmitButton() {
+    const submitButton = document.querySelector('.pet-form__submit');
+    submitButton.style.opacity = '0';
+    requestAnimationFrame(() => {
+        submitButton.style.opacity = '1';
+    });
+}
+
+function animateInputError(input) {
+    input.parentElement.style.opacity = '0';
+    requestAnimationFrame(() => {
+        input.parentElement.style.opacity = '1';
+    });
+} 

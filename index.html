@@ -11,70 +11,74 @@
         <div class="header__inner">
             <div class="header__logo">
                 <a href="/" class="logo">
-                    <svg width="120" height="40" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" class="logo__img">
-                        <!-- Кошка -->
-                        <path d="M30 15 C35 10, 40 10, 45 15 C50 20, 50 25, 45 30 C40 35, 35 35, 30 30 C25 25, 25 20, 30 15" 
-                              fill="#FFB6C1" stroke="#000" stroke-width="1"/>
-                        <circle cx="35" cy="20" r="2" fill="#000"/> <!-- Глаз -->
-                        <circle cx="43" cy="20" r="2" fill="#000"/> <!-- Глаз -->
-                        <path d="M38 25 Q40 27, 42 25" stroke="#000" fill="none"/> <!-- Улыбка -->
-                        
-                        <!-- Собака -->
-                        <path d="M70 15 C75 10, 80 10, 85 15 C90 20, 90 25, 85 30 C80 35, 75 35, 70 30 C65 25, 65 20, 70 15" 
-                              fill="#87CEEB" stroke="#000" stroke-width="1"/>
-                        <circle cx="75" cy="20" r="2" fill="#000"/> <!-- Глаз -->
-                        <circle cx="83" cy="20" r="2" fill="#000"/> <!-- Глаз -->
-                        <path d="M78 25 Q80 27, 82 25" stroke="#000" fill="none"/> <!-- Улыбка -->
-                        
-                        <!-- Текст -->
-                        <text x="10" y="38" font-family="Arial" font-size="12" fill="#333">PetFriends</text>
+                    <svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" class="logo__img">
+                        <!-- Мордочка кошки -->
+                        <path d="M30 15 C40 5, 50 5, 55 15 C60 25, 60 35, 55 45 C50 55, 40 55, 30 45 C20 35, 20 25, 30 15" 
+                              fill="#FFB6C1" stroke="#000" stroke-width="1.5"/>
+                        <!-- Уши -->
+                        <path d="M25 15 L20 5 L30 15" fill="#FFB6C1" stroke="#000" stroke-width="1.5"/>
+                        <path d="M35 15 L40 5 L30 15" fill="#FFB6C1" stroke="#000" stroke-width="1.5"/>
+                        <!-- Глаза -->
+                        <circle cx="35" cy="25" r="3" fill="#000"/>
+                        <circle cx="45" cy="25" r="3" fill="#000"/>
+                        <!-- Нос -->
+                        <path d="M38 32 L40 32 L39 34" fill="#FF69B4" stroke="#000" stroke-width="1"/>
+                        <!-- Усы -->
+                        <path d="M35 34 L25 32" stroke="#000" stroke-width="1"/>
+                        <path d="M35 35 L25 35" stroke="#000" stroke-width="1"/>
+                        <path d="M35 36 L25 38" stroke="#000" stroke-width="1"/>
+                        <path d="M45 34 L55 32" stroke="#000" stroke-width="1"/>
+                        <path d="M45 35 L55 35" stroke="#000" stroke-width="1"/>
+                        <path d="M45 36 L55 38" stroke="#000" stroke-width="1"/>
+                        <!-- Улыбка -->
+                        <path d="M38 38 Q40 40, 42 38" stroke="#000" fill="none" stroke-width="1.5"/>
                     </svg>
+                    <span class="logo__text">Памяткин</span>
                 </a>
             </div>
-            <nav class="header__menu menu">
-                <ul class="menu__list">
-                    <li class="menu__item">
-                        <a href="/" class="menu__link">Главная</a>
-                    </li>
-                    <li class="menu__item">
-                        <a href="/about" class="menu__link">О нас</a>
-                    </li>
-                    <li class="menu__item">
-                        <a href="/services" class="menu__link">Услуги</a>
-                    </li>
-                    <li class="menu__item">
-                        <a href="/contacts" class="menu__link">Контакты</a>
-                    </li>
-                </ul>
-            </nav>
         </div>
     </div>
 </header>
 <section class="pet-form">
     <div class="container">
         <h2 class="pet-form__title">Добавить питомца</h2>
-        <form class="pet-form__content">
+        <form class="pet-form__content" novalidate>
             <div class="pet-form__main">
                 <div class="pet-form__fields">
                     <div class="form-group">
                         <label for="pet-name">Имя питомца</label>
-                        <input type="text" id="pet-name" name="pet-name" required>
+                        <div class="input-wrapper">
+                            <input type="text" id="pet-name" name="pet-name" maxlength="30" required placeholder=" ">
+                            <button type="button" class="clear-field" aria-label="Очистить поле"></button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="pet-breed">Порода</label>
-                        <input type="text" id="pet-breed" name="pet-breed" required>
+                        <div class="input-wrapper">
+                            <input type="text" id="pet-breed" name="pet-breed" maxlength="50" required placeholder=" ">
+                            <button type="button" class="clear-field" aria-label="Очистить поле"></button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="pet-color">Окрас</label>
-                        <input type="text" id="pet-color" name="pet-color" required>
+                        <div class="input-wrapper">
+                            <input type="text" id="pet-color" name="pet-color" maxlength="30" required placeholder=" ">
+                            <button type="button" class="clear-field" aria-label="Очистить поле"></button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="pet-birthdate">Дата рождения</label>
-                        <input type="date" id="pet-birthdate" name="pet-birthdate" required>
+                        <div class="input-wrapper">
+                            <input type="date" id="pet-birthdate" name="pet-birthdate" style="width: 150px;" required placeholder=" ">
+                            <button type="button" class="clear-field" aria-label="Очистить поле"></button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label for="pet-chip">Номер чипа</label>
-                        <input type="text" id="pet-chip" name="pet-chip" required>
+                        <div class="input-wrapper">
+                            <input type="text" id="pet-chip" name="pet-chip" maxlength="15" required placeholder=" ">
+                            <button type="button" class="clear-field" aria-label="Очистить поле"></button>
+                        </div>
                     </div>
                     <div class="form-group">
                         <label>Пол</label>
@@ -96,7 +100,8 @@
                             <span>Загрузить фото</span>
                             <span class="photo-upload__hint">или перетащите файл сюда</span>
                         </label>
-                        <div class="photo-upload__preview"></div>
+                        <div class="photo-upload__preview">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -104,6 +109,48 @@
         </form>
     </div>
 </section>
+
+<!-- Карточка питомца -->
+<div class="pet-card">
+    <div class="pet-card__header">
+        <div class="pet-card__photo">
+            <img src="" alt="Фото питомца" id="pet-card-photo">
+        </div>
+        <div class="pet-card__info">
+            <div class="pet-card__top">
+                <h3 class="pet-card__name" id="pet-card-name"></h3>
+                <button class="pet-card__delete" id="pet-card-delete" aria-label="Удалить питомца">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M2 4H14M5.333 4V2.667C5.333 2.298 5.632 2 6 2H10C10.368 2 10.667 2.298 10.667 2.667V4M12.667 4V13.333C12.667 13.701 12.368 14 12 14H4C3.632 14 3.333 13.701 3.333 13.333V4H12.667Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="pet-card__details">
+                <div class="pet-card__detail">
+                    <span class="pet-card__label">Порода:</span>
+                    <span class="pet-card__value" id="pet-card-breed"></span>
+                </div>
+                <div class="pet-card__detail">
+                    <span class="pet-card__label">Окрас:</span>
+                    <span class="pet-card__value" id="pet-card-color"></span>
+                </div>
+                <div class="pet-card__detail">
+                    <span class="pet-card__label">Дата рождения:</span>
+                    <span class="pet-card__value" id="pet-card-birthdate"></span>
+                </div>
+                <div class="pet-card__detail">
+                    <span class="pet-card__label">Номер чипа:</span>
+                    <span class="pet-card__value" id="pet-card-chip"></span>
+                </div>
+                <div class="pet-card__detail">
+                    <span class="pet-card__label">Пол:</span>
+                    <span class="pet-card__value" id="pet-card-gender"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <section class="post-feed">
     <div class="container">
         <h2 class="post-feed__title">Последние публикации</h2>
@@ -158,7 +205,23 @@
         <img src="" alt="Увеличенное изображение" class="image-popup__image">
     </div>
 </div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer__content">
+            <div class="footer__copyright">
+                © 2024 Памяткин. Все права защищены
+            </div>
+            <div class="footer__links">
+                <a href="/privacy" class="footer__link">Политика конфиденциальности</a>
+                <a href="/terms" class="footer__link">Условия использования</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
 <script src="script.js"></script>
 </body>
+</html>
 
 
