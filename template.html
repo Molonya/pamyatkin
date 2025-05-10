@@ -3,117 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Template</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Янус — рекомендации по уходу</title>
     <style>
-        /* Стили для template.html */
-        .template {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        .template__header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .template__title {
-            font-size: 32px;
-            color: #333;
-            margin-bottom: 20px;
-        }
-
-        .template__content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .template__card {
+        body {
+            font-family: 'Arial', sans-serif;
             background: #fff;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .template__card:hover {
-            transform: translateY(-5px);
-        }
-
-        .template__image {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
-        }
-
-        .template__subtitle {
-            font-size: 20px;
             color: #222;
-            margin-bottom: 10px;
+            margin: 0;
+            padding: 0;
         }
-
-        .template__text {
-            color: #666;
+        .page {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 32px 32px 32px;
+            position: relative;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+        .header {
+            margin-bottom: 16px;
+        }
+        .pet-name {
+            font-size: 72px;
+            font-weight: bold;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+        .subtitle {
+            font-size: 22px;
+            color: #444;
+            margin-bottom: 32px;
+        }
+        .info-row {
+            display: flex;
+            gap: 32px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+        .info-block {
+            min-width: 140px;
+            flex: 1 1 0;
+        }
+        .info-label {
+            font-size: 14px;
+            color: #888;
+        }
+        .info-value {
+            font-size: 16px;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+        .section {
+            margin-bottom: 32px;
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+        .section-flex {
+            display: flex;
+            gap: 32px;
+            align-items: flex-start;
+        }
+        .section-text {
+            flex: 2;
+            font-size: 17px;
             line-height: 1.6;
         }
-
-        /* Адаптивность */
-        @media (max-width: 768px) {
-            .template__title {
-                font-size: 24px;
-            }
-
-            .template__content {
-                grid-template-columns: 1fr;
-            }
-
-            .template__card {
-                margin-bottom: 20px;
-            }
+        .section-img {
+            flex: 1;
+            min-width: 220px;
+            max-width: 260px;
+            align-self: flex-start;
         }
-
-        @media (max-width: 480px) {
-            .template {
-                padding: 10px;
-            }
-
-            .template__title {
-                font-size: 20px;
-            }
+        .section-img img {
+            width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+        .contacts-row {
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            margin-top: 40px;
+        }
+        .contacts {
+            text-align: right;
+            font-size: 15px;
+        }
+        .contacts-logo {
+            width: 120px;
+            margin-bottom: 8px;
+        }
+        .contacts-list {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 0 0;
+        }
+        .contacts-list li {
+            margin-bottom: 4px;
+        }
+        .vertical-sign {
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%) rotate(90deg);
+            transform-origin: right top;
+            font-size: 13px;
+            color: #888;
+            letter-spacing: 0.5px;
+        }
+        @media (max-width: 900px) {
+            .page { padding: 24px 8px 24px 8px; }
+            .pet-name { font-size: 48px; }
+            .section-title { font-size: 22px; }
+        }
+        @media (max-width: 700px) {
+            .section-flex { flex-direction: column; }
+            .section-img { max-width: 100%; min-width: 0; margin-top: 16px; }
+            .contacts-row { justify-content: center; }
+            .vertical-sign { display: none; }
         }
     </style>
 </head>
 <body>
-    <div class="template">
-        <header class="template__header">
-            <h1 class="template__title">Заголовок страницы</h1>
-        </header>
-        
-        <main class="template__content">
-            <article class="template__card">
-                <img src="images/placeholder.jpg" alt="Изображение" class="template__image">
-                <h2 class="template__subtitle">Подзаголовок 1</h2>
-                <p class="template__text">Описание карточки. Здесь может быть любой текст, описывающий содержимое карточки.</p>
-            </article>
-
-            <article class="template__card">
-                <img src="images/placeholder.jpg" alt="Изображение" class="template__image">
-                <h2 class="template__subtitle">Подзаголовок 2</h2>
-                <p class="template__text">Описание карточки. Здесь может быть любой текст, описывающий содержимое карточки.</p>
-            </article>
-
-            <article class="template__card">
-                <img src="images/placeholder.jpg" alt="Изображение" class="template__image">
-                <h2 class="template__subtitle">Подзаголовок 3</h2>
-                <p class="template__text">Описание карточки. Здесь может быть любой текст, описывающий содержимое карточки.</p>
-            </article>
-        </main>
+    <div class="page">
+        <div class="header">
+            <div class="pet-name">Янус</div>
+            <div class="subtitle">Рекомендации по уходу</div>
+        </div>
+        <div class="info-row">
+            <div class="info-block">
+                <div class="info-label">Дата рождения</div>
+                <div class="info-value">01.02.2025,<br>3 месяца</div>
+            </div>
+            <div class="info-block">
+                <div class="info-label">Имя в родословной</div>
+                <div class="info-value">Arman Pride Yan</div>
+            </div>
+            <div class="info-block">
+                <div class="info-label">Порода</div>
+                <div class="info-value">Мейн-кун ♂</div>
+            </div>
+            <div class="info-block">
+                <div class="info-label">Окрас</div>
+                <div class="info-value">Кремовый солид</div>
+            </div>
+            <div class="info-block">
+                <div class="info-label">Чип</div>
+                <div class="info-value">№333666999</div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="section-title">Помогите котёнку обустроиться</div>
+            <div class="section-flex">
+                <div class="section-text">
+                    Первые 2–3 дня нужно ограничить пространство одной комнатой. В свободном доступе у котёнка в этой комнате должны быть миски с водой, едой и лоток. Это делается для того, чтобы котёнок не растерялся в новом месте. Для него всё будет новым: место, люди, запахи, лоток. Поэтому очень важно, чтобы все было в зоне его досягаемости.<br><br>
+                    Когда увидите, что он чётко ходит в лоток, признал его своим — можете переставить лоток в другое место. Но обязательно покажите его котёнку, чтобы он не потерял лоток. Посадите котёнка в лоток, если он не нашёл его сам.<br><br>
+                    Первые пару дней он может плохо кушать или даже не кушать совсем. Не пугайтесь, такое бывает в первые дни — он покушает ночью, когда все будут спать. Потом все наладится. Можете предложить котёнку влажный корм для аппетита.
+                </div>
+                <div class="section-img">
+                    <img src="images/kitten.jpg" alt="Котёнок">
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="section-title">Подберите правильный корм</div>
+            <div class="section-text">
+                Свежая питьевая вода и сухой корм всегда должны быть в доступе для питомца. Влажный корм для котят до года или премиум класса можно давать один раз в день.<br><br>
+                В качестве сухого корма используйте «Proplan для котят», а из влажных подойдут «Royal Canin Kitten Instinctive для котят» и паштет «Royal Canin Babycat Instinctive».<br><br>
+                Дополнительно питомцу можно давать: вареное постное мясо или сырое, промороженное не менее суток в морозилке. Также можно предлагать творог, йогурт без добавок, сметану, сыры. Варёное куриное или перепелиное яйцо 1 раз в неделю.
+            </div>
+        </div>
+        <div class="contacts-row">
+            <div class="contacts">
+                <img src="images/logo.png" alt="Arman Pride" class="contacts-logo"><br>
+                <ul class="contacts-list">
+                    <li>+7 903 888 3773, Людмила</li>
+                    <li>mailecon@armanpride.ru</li>
+                    <li>armanpride.ru</li>
+                    <li>armanprideru</li>
+                    <li>armanprideru</li>
+                </ul>
+            </div>
+        </div>
+        <div class="vertical-sign">Создано в «Лапкинетике», lapkinetik.ru</div>
     </div>
-
-    <script src="script.js"></script>
 </body>
 </html> 
